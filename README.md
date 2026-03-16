@@ -1,13 +1,13 @@
 # DoctorOnCall Frontend
 
-Frontend-only implementation of a modern DoctorOnCall platform, built to demonstrate production-style UI architecture, responsive design, and backend-ready integration.
+Production-style, frontend-only implementation of a modern telehealth platform focused on performance, UX, and clean architecture.
 
-## Project Scope
+## Overview
 
-- Frontend only (no real backend APIs)
-- Mocked data and simulated user flows
-- Scalable component-based structure
-- Responsive and accessible user interface
+- Scope: Frontend only (no real backend APIs)
+- Data: Mocked and centralized for easy API replacement
+- Goal: Real-world UI quality with scalable component structure
+- UX: Responsive, accessible, and role-aware navigation
 
 ## Tech Stack
 
@@ -15,182 +15,160 @@ Frontend-only implementation of a modern DoctorOnCall platform, built to demonst
 - React Router DOM
 - Vite
 - ESLint
-- CSS (component-friendly global design system)
+- CSS (custom design system)
 
-## Local Setup
-
-1. Install dependencies
+## Quick Start
 
 ```bash
 npm install
-```
-
-2. Start development server
-
-```bash
 npm run dev
 ```
 
-3. Build production bundle
+## Scripts
 
 ```bash
-npm run build
+npm run dev     # Start development server
+npm run build   # Build production bundle
+npm run lint    # Run lint checks
 ```
 
-4. Run lint checks
+## Implemented Features
 
-```bash
-npm run lint
-```
+### 1. Dynamic Homepage
 
-## Delivered Features
+- Primary actions for booking, emergency, tracking, and doctor discovery
+- Trust strip with key metrics
+- Top doctors preview section
+- Testimonial cards and conversion CTA band
+- Subtle motion, hover polish, and loading skeletons
 
-- Dynamic homepage with clear entry points
-	- Book appointment
-	- Emergency booking
-	- Track appointment
-	- Discover doctors
-	- Trust metrics strip
-	- Top doctors preview
-	- Testimonials and conversion CTA band
-- Appointment booking UI
-	- Date selection
-	- Time range selection
-	- Preferred doctor selection
-	- Emergency flow
-	- Frontend validation and error states
-- Doctor dashboard UI
-	- Appointment list
-	- Patient detail panel
-	- Prescription and treatment note area
-- Patient dashboard UI
-	- Appointment history
-	- Treatment status overview
-	- Medication snapshot
-- Authentication UI
-	- Sign in
-	- Sign up
-	- Forgot password
-	- Doctor email verification
-	- Mock login role selection (patient/doctor)
-	- Logout action in navbar
-	- Dashboard visibility and access after login only
-- Doctor search and filtering
-	- Name search
-	- Specialization filter
-	- Availability filter
-- Appointment tracking UI
-	- Tracking ID lookup
-	- Visual status timeline
-- Prescription and invoice preview per appointment
+### 2. Appointment Booking
+
+- Date selection
+- Time slot selection
+- Doctor preference selection
+- Emergency appointment flow
+- Form validation and user feedback
+
+### 3. Dashboards (UI)
+
+- Doctor dashboard:
+  - Appointment list
+  - Patient details panel
+  - Prescription and treatment area
+- Patient dashboard:
+  - Appointment history
+  - Treatment and status overview
+  - Medication snapshot
+
+### 4. Authentication
+
+- Sign in, sign up, forgot password, doctor email verification
+- Mock role-based login (Patient/Doctor)
+- Protected dashboard routes
+- Logout in navigation
+
+### 5. Doctor Search and Tracking
+
+- Doctor search with filters:
+  - Name
+  - Specialization
+  - Availability
+- Tracking page with ID lookup and visual status timeline
+
+### 6. Prescriptions and Invoices
+
+- Prescription preview per appointment
+- Invoice preview per appointment
 
 ## Route Map
 
-- / : Homepage
-- /doctors : Doctor search and filters
-- /book : Appointment booking
-- /track : Appointment tracking
-- /auth/sign-in : Sign in
-- /auth/sign-up : Sign up
-- /auth/forgot-password : Password recovery
-- /auth/doctor-verify-email : Doctor email verification
-- /doctor/dashboard : Doctor dashboard
-- /patient/dashboard : Patient dashboard
-- /dashboard : Role-based dashboard redirect
-- /records/:appointmentId : Prescription and invoice view
+- `/` - Homepage
+- `/doctors` - Doctor search and filters
+- `/book` - Appointment booking
+- `/track` - Appointment tracking
+- `/auth/sign-in` - Sign in
+- `/auth/sign-up` - Sign up
+- `/auth/forgot-password` - Password recovery
+- `/auth/doctor-verify-email` - Doctor email verification
+- `/doctor/dashboard` - Doctor dashboard (protected)
+- `/patient/dashboard` - Patient dashboard (protected)
+- `/dashboard` - Role-based dashboard redirect
+- `/records/:appointmentId` - Prescription and invoice view
 
-## Folder Structure
+## Project Structure
 
 ```text
 src/
-	components/
-		EmptyState.jsx
-		Footer.jsx
-		FormField.jsx
-		Layout.jsx
-		Navbar.jsx
-		PageHeader.jsx
-		ProtectedRoute.jsx
-		StatCard.jsx
-		StatusTimeline.jsx
-	context/
-		AuthContext.jsx
-	data/
-		mockData.js
-	pages/
-		AuthSignInPage.jsx
-		AuthSignUpPage.jsx
-		BookingPage.jsx
-		DoctorDashboardPage.jsx
-		DoctorVerifyEmailPage.jsx
-		ForgotPasswordPage.jsx
-		HomePage.jsx
-		NotFoundPage.jsx
-		PatientDashboardPage.jsx
-		PrescriptionInvoicePage.jsx
-		SearchDoctorsPage.jsx
-		TrackingPage.jsx
-	App.jsx
-	index.css
-	main.jsx
+  components/
+    EmptyState.jsx
+    Footer.jsx
+    FormField.jsx
+    Layout.jsx
+    Navbar.jsx
+    PageHeader.jsx
+    ProtectedRoute.jsx
+    StatCard.jsx
+    StatusTimeline.jsx
+  context/
+    AuthContext.jsx
+  data/
+    mockData.js
+  pages/
+    AuthSignInPage.jsx
+    AuthSignUpPage.jsx
+    BookingPage.jsx
+    DoctorDashboardPage.jsx
+    DoctorVerifyEmailPage.jsx
+    ForgotPasswordPage.jsx
+    HomePage.jsx
+    NotFoundPage.jsx
+    PatientDashboardPage.jsx
+    PrescriptionInvoicePage.jsx
+    SearchDoctorsPage.jsx
+    TrackingPage.jsx
+  App.jsx
+  index.css
+  main.jsx
 ```
 
 ## Architecture Notes
 
-- Routing and code splitting
-	- Route-level lazy loading via React.lazy and Suspense in App.jsx.
-- Route protection and auth gating
-	- ProtectedRoute enforces login and role checks for dashboard routes.
-	- AuthProvider stores mock session state in localStorage for persistent login.
-- Shared layout pattern
-	- One reusable layout shell with navbar and footer.
-- Reusable UI building blocks
-	- PageHeader, FormField, StatCard, and StatusTimeline reduce duplication.
-- Mock data strategy
-	- Centralized data in src/data/mockData.js for easy replacement by API calls.
+- Route-level code splitting via `React.lazy` and `Suspense`
+- `ProtectedRoute` for auth/role checks on dashboard pages
+- `AuthProvider` with localStorage-backed mock session state
+- Shared layout shell and reusable UI components
+- Centralized mock data for backend-ready integration
 
-## UI and UX Decisions
+## UI/UX Decisions
 
-- Performance
-	- Lazy-loaded page modules to reduce initial payload.
-- Maintainability
-	- Clear separation of pages, components, and data layer.
-- User experience
-	- Fast action paths from home page.
-	- Distinct emergency booking visual treatment.
-	- Cleaner navbar with reduced crowding.
-	- Richer homepage trust and discovery sections.
-	- Clear validation and feedback on forms.
-	- Timeline-based appointment tracking feedback.
-- Responsiveness
-	- Adaptive grids and mobile-first breakpoints.
-- Accessibility
-	- Label-associated form controls.
-	- Semantic sections and readable color contrast.
+- Performance: lazy-loaded page modules and lightweight component composition
+- Maintainability: clear separation of pages, shared components, and data
+- UX: strong CTA hierarchy, emergency prioritization, trust-building sections
+- Accessibility: labeled controls, semantic structure, readable contrast
+- Responsiveness: adaptive grid layouts and mobile-aware navigation spacing
 
-## Backend Integration Readiness
+## Backend Integration Plan
 
-- Replace mock exports in src/data/mockData.js with API service calls.
-- Keep existing page-level handlers and connect them to endpoints.
-- Current data model supports straightforward mapping to backend DTOs:
-	- doctor
-	- appointment
-	- prescription
-	- invoice
+- Replace mock data from `src/data/mockData.js` with API calls
+- Keep current submit handlers and connect to service layer
+- Existing entities map cleanly to backend DTOs:
+  - doctor
+  - appointment
+  - prescription
+  - invoice
 
-## Quality Checks
+## Quality Status
 
-- npm run build: passing
-- npm run lint: passing
-
-## Submission Notes
-
-- This project intentionally focuses on frontend architecture and UX.
-- Backend logic, authentication, and persistence are mocked and ready for integration.
+- `npm run lint` - passing
+- `npm run build` - passing
 
 ## Demo Notes
 
-- Sign in page supports selecting role: Patient or Doctor.
-- Dashboard routes are guarded:
-	- Non-authenticated users are redirected to /auth/sign-in.
-	- Authenticated users can only access their own role dashboard.
+- Sign in supports role selection (Patient or Doctor)
+- Unauthenticated dashboard access redirects to sign in
+- Authenticated users can access only their own role dashboard
+
+## Submission Note
+
+This project intentionally focuses on frontend architecture and UX; backend logic and persistence are mocked and integration-ready.
