@@ -181,6 +181,7 @@ function HomePage() {
       </section>
 
       <PageHeader
+        headingLevel="h2"
         title="Primary Frontend Modules"
         subtitle="This implementation includes all requested screens and UI flows with responsive behavior."
       />
