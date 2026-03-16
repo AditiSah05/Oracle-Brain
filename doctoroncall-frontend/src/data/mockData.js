@@ -16,6 +16,11 @@ export const doctors = [
     experience: '9 years',
     rating: 4.8,
     fee: 700,
+    hospital: 'Janakpur City Care Center',
+    education: 'MD, Internal Medicine - Tribhuvan University',
+    languages: ['English', 'Nepali', 'Hindi'],
+    consultationModes: ['In-person', 'Video'],
+    bio: 'Focuses on preventive care and long-term chronic condition management with patient-friendly communication.',
   },
   {
     id: 'dr-102',
@@ -25,6 +30,11 @@ export const doctors = [
     experience: '14 years',
     rating: 4.9,
     fee: 1200,
+    hospital: 'Metro Heart and Vascular Institute',
+    education: 'DM, Cardiology - All India Institute of Medical Sciences',
+    languages: ['English', 'Hindi', 'Tamil'],
+    consultationModes: ['In-person', 'Video'],
+    bio: 'Specializes in cardiac risk assessment, hypertension management, and post-procedure follow-up.',
   },
   {
     id: 'dr-103',
@@ -34,6 +44,11 @@ export const doctors = [
     experience: '7 years',
     rating: 4.7,
     fee: 850,
+    hospital: 'Skin and Wellness Clinic',
+    education: 'MD, Dermatology - Kathmandu Medical College',
+    languages: ['English', 'Nepali'],
+    consultationModes: ['In-person'],
+    bio: 'Treats acne, eczema, and pigmentation concerns with evidence-based and lifestyle-aligned plans.',
   },
   {
     id: 'dr-104',
@@ -43,6 +58,11 @@ export const doctors = [
     experience: '12 years',
     rating: 4.6,
     fee: 1500,
+    hospital: 'NeuroCare Specialty Hospital',
+    education: 'DM, Neurology - National Institute of Neurosciences',
+    languages: ['English', 'Nepali', 'Bengali'],
+    consultationModes: ['In-person', 'Video'],
+    bio: 'Experienced in migraine, seizure, and neuropathy evaluation with stepwise diagnostic planning.',
   },
 ]
 

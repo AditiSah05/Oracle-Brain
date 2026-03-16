@@ -2,7 +2,17 @@ import { useMemo, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import FormField from '../components/FormField'
 import PageHeader from '../components/PageHeader'
-import { doctors } from '../data/mockData'
+import { appointments, doctors } from '../data/mockData'
+
+const timeSlots = [
+  '09:00 AM - 09:30 AM',
+  '10:00 AM - 10:30 AM',
+  '11:00 AM - 11:30 AM',
+  '12:00 PM - 12:30 PM',
+  '03:00 PM - 03:30 PM',
+  '03:30 PM - 04:00 PM',
+  '05:00 PM - 05:30 PM',
+]
 
 function validate(values) {
   const errors = {}
@@ -31,6 +41,21 @@ function BookingPage() {
   const [result, setResult] = useState(null)
 
   const selectedDoctor = useMemo(() => doctors.find((doctor) => doctor.id === form.doctorId), [form.doctorId])
+  const bookedSlots = useMemo(() => {
+    if (!form.doctorId || !form.date) return []
+
+    return appointments
+      .filter((appointment) => appointment.doctorId === form.doctorId && appointment.date === form.date)
+      .map((appointment) => appointment.timeRange)
+  }, [form.date, form.doctorId])
+
+  const availableSlots = useMemo(
+    () => timeSlots.filter((slot) => !bookedSlots.includes(slot)),
+    [bookedSlots],
+  )
+
+  const selectedTimeRange = form.timeRange && !bookedSlots.includes(form.timeRange) ? form.timeRange : ''
+  const nextAvailableSlot = availableSlots[0] || null
 
   function updateField(event) {
     const { name, value } = event.target
@@ -39,7 +64,7 @@ function BookingPage() {
 
   function handleSubmit(event) {
     event.preventDefault()
-    const nextErrors = validate(form)
+    const nextErrors = validate({ ...form, timeRange: selectedTimeRange })
     setErrors(nextErrors)
     if (Object.keys(nextErrors).length > 0) return
 
@@ -88,16 +113,29 @@ function BookingPage() {
             </FormField>
 
             <FormField id="timeRange" label="Time range" error={errors.timeRange}>
-              <select id="timeRange" name="timeRange" value={form.timeRange} onChange={updateField}>
+              <select id="timeRange" name="timeRange" value={selectedTimeRange} onChange={updateField}>
                 <option value="">Select slot</option>
-                <option>09:00 AM - 09:30 AM</option>
-                <option>10:00 AM - 10:30 AM</option>
-                <option>12:00 PM - 12:30 PM</option>
-                <option>03:00 PM - 03:30 PM</option>
-                <option>05:00 PM - 05:30 PM</option>
+                {timeSlots.map((slot) => {
+                  const isBooked = bookedSlots.includes(slot)
+                  return (
+                    <option key={slot} value={slot} disabled={isBooked}>
+                      {isBooked ? `${slot} (Booked)` : slot}
+                    </option>
+                  )
+                })}
               </select>
             </FormField>
           </div>
+
+          {form.doctorId && form.date ? (
+            <div className="slot-hint" role="status" aria-live="polite">
+              {nextAvailableSlot ? (
+                <p className="muted">Next available slot: {nextAvailableSlot}</p>
+              ) : (
+                <p className="error">No slots left for this date. Please choose another date.</p>
+              )}
+            </div>
+          ) : null}
 
           <FormField id="concern" label="Symptoms / Notes" error={errors.concern}>
             <textarea id="concern" name="concern" rows="4" value={form.concern} onChange={updateField} />

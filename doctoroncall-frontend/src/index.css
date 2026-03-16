@@ -463,6 +463,15 @@ button {
   font-family: 'Space Grotesk', sans-serif;
 }
 
+.doctor-profile-card {
+  border: 1px solid #c5ddd8;
+  background: linear-gradient(150deg, #f7fdfc 0%, #f4f9ff 100%);
+}
+
+.doctor-profile-card p {
+  margin: 0.4rem 0;
+}
+
 .testimonials-shell {
   background: linear-gradient(150deg, #f6fbff 0%, #edfaf6 100%);
 }
@@ -687,6 +696,17 @@ textarea:focus {
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
+}
+
+.slot-hint {
+  border: 1px dashed #9bc9c3;
+  border-radius: 12px;
+  padding: 0.65rem 0.8rem;
+  background: #f4fcfa;
+}
+
+.slot-hint p {
+  margin: 0;
 }
 
 .auth-card {
