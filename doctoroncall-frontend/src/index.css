@@ -806,6 +806,17 @@ textarea:focus {
   gap: 0.5rem;
 }
 
+.quick-actions {
+  margin-top: 1rem;
+  gap: 0.72rem;
+}
+
+.quick-actions .quick-link {
+  width: 100%;
+  min-height: 48px;
+  line-height: 1.2;
+}
+
 .quick-link svg {
   width: 16px;
   height: 16px;

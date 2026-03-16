@@ -73,7 +73,7 @@ function HomePage() {
               <li>Live tracking via appointment tracking ID</li>
             </ul>
           </div>
-          <div className="stack">
+          <div className="stack quick-actions">
             <Link className="btn btn-secondary quick-link" to="/track">
               <PinIcon />
               Track Appointment
