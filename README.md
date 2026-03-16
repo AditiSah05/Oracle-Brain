@@ -148,6 +148,43 @@ src/
 - Accessibility: labeled controls, semantic structure, readable contrast
 - Responsiveness: adaptive grid layouts and mobile-aware navigation spacing
 
+## Accessibility Highlights
+
+- Skip link added for direct keyboard navigation to main content
+- Route-change focus management to announce new page context faster for assistive technologies
+- Mobile menu supports keyboard flow with `Esc` close behavior and focus trap while open
+- Strong visible focus styles across links, buttons, and form controls
+- Form fields expose validation states with ARIA (`aria-invalid`, `aria-describedby`)
+- Auth pages announce validation errors and success updates via live regions (`role="alert"`, `role="status"`)
+- Reduced motion support via `prefers-reduced-motion`
+
+### Manual Accessibility Check (Quick)
+
+1. Keyboard only navigation
+  - Use `Tab` and `Shift+Tab` across navbar, forms, cards, and footer.
+  - Confirm focus is always visible.
+
+2. Skip link behavior
+  - On first `Tab` press from top of page, activate Skip to main content.
+  - Confirm focus lands in main page content.
+
+3. Mobile menu keyboard flow
+  - Open menu with keyboard.
+  - Use `Esc` to close.
+  - Confirm focus remains trapped inside menu while open.
+
+4. Route-change focus announcement
+  - Navigate between routes via keyboard.
+  - Confirm focus moves to page heading/content after navigation.
+
+5. Auth form validation
+  - Submit empty/invalid fields on sign in, sign up, forgot password, and doctor verify pages.
+  - Confirm first invalid field receives focus and errors are announced.
+
+6. Reduced motion preference
+  - Enable reduced motion in OS settings.
+  - Confirm non-essential animations are minimized.
+
 ## Backend Integration Plan
 
 - Replace mock data from `src/data/mockData.js` with API calls
