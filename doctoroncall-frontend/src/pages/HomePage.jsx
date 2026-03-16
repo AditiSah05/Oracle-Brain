@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import PageHeader from '../components/PageHeader'
+import { CalendarIcon, EmergencyIcon, PulseIcon, SearchIcon, StackIcon, ZapIcon } from '../components/UiIcons'
 import heroImg from '../assets/hero.png'
 import { doctors } from '../data/mockData'
 
@@ -28,15 +29,21 @@ function HomePage() {
           </p>
           <div className="cta-row">
             <Link className="btn btn-primary" to="/book">
-              <span className="btn-mark" aria-hidden="true">B</span>
+              <span className="btn-mark" aria-hidden="true">
+                <CalendarIcon />
+              </span>
               BOOK APPOINTMENT
             </Link>
             <Link className="btn btn-alert" to="/book?type=emergency">
-              <span className="btn-mark" aria-hidden="true">E</span>
+              <span className="btn-mark" aria-hidden="true">
+                <EmergencyIcon />
+              </span>
               EMERGENCY
             </Link>
             <Link className="btn btn-outline" to="/doctors">
-              <span className="btn-mark" aria-hidden="true">D</span>
+              <span className="btn-mark" aria-hidden="true">
+                <SearchIcon />
+              </span>
               DISCOVER DOCTORS
             </Link>
           </div>
@@ -115,21 +122,21 @@ function HomePage() {
       <div className="grid-three">
         <article className="card">
           <span className="feature-icon" aria-hidden="true">
-            P
+            <ZapIcon />
           </span>
           <h3>Performance-first UI</h3>
           <p className="muted">Lazy-loaded routes and reusable components keep this frontend fast and maintainable.</p>
         </article>
         <article className="card">
           <span className="feature-icon" aria-hidden="true">
-            E
+            <PulseIcon />
           </span>
           <h3>Emergency-first UX</h3>
           <p className="muted">Dedicated emergency booking flow and clear status updates for urgent appointments.</p>
         </article>
         <article className="card">
           <span className="feature-icon" aria-hidden="true">
-            B
+            <StackIcon />
           </span>
           <h3>Backend-ready structure</h3>
           <p className="muted">All data is mocked in a centralized module and can be swapped with APIs later.</p>

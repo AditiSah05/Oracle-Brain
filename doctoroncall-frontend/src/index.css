@@ -270,6 +270,11 @@ button {
   border: 1px solid rgba(255, 255, 255, 0.45);
 }
 
+.btn-mark svg {
+  width: 11px;
+  height: 11px;
+}
+
 .btn-primary {
   background: linear-gradient(135deg, var(--brand) 0%, var(--brand-dark) 100%);
   color: #fff;
@@ -708,6 +713,11 @@ textarea:focus {
   font-family: 'Space Grotesk', sans-serif;
   font-weight: 700;
   margin-bottom: 0.35rem;
+}
+
+.feature-icon svg {
+  width: 16px;
+  height: 16px;
 }
 
 .skeleton-grid {
