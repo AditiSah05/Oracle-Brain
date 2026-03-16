@@ -686,19 +686,14 @@ textarea:focus {
 
 .quick-link {
   justify-content: flex-start;
-  position: relative;
-  padding-left: 2.25rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
-.quick-link::before {
-  content: '';
-  position: absolute;
-  left: 0.9rem;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: #0f9a89;
-  box-shadow: 0 0 0 5px rgba(15, 154, 137, 0.18);
+.quick-link svg {
+  width: 16px;
+  height: 16px;
 }
 
 .feature-icon {

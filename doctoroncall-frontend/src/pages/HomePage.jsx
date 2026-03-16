@@ -1,7 +1,17 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import PageHeader from '../components/PageHeader'
-import { CalendarIcon, EmergencyIcon, PulseIcon, SearchIcon, StackIcon, ZapIcon } from '../components/UiIcons'
+import {
+  CalendarIcon,
+  EmergencyIcon,
+  PinIcon,
+  PulseIcon,
+  SearchIcon,
+  StackIcon,
+  StethoscopeIcon,
+  UserIcon,
+  ZapIcon,
+} from '../components/UiIcons'
 import heroImg from '../assets/hero.png'
 import { doctors } from '../data/mockData'
 
@@ -65,12 +75,15 @@ function HomePage() {
           </div>
           <div className="stack">
             <Link className="btn btn-secondary quick-link" to="/track">
+              <PinIcon />
               Track Appointment
             </Link>
             <Link className="btn btn-secondary quick-link" to="/patient/dashboard">
+              <UserIcon />
               Patient Dashboard
             </Link>
             <Link className="btn btn-secondary quick-link" to="/doctor/dashboard">
+              <StethoscopeIcon />
               Doctor Dashboard
             </Link>
           </div>

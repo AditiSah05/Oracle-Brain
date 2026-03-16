@@ -58,3 +58,33 @@ export function StackIcon({ className }) {
     </BaseIcon>
   )
 }
+
+export function PinIcon({ className }) {
+  return (
+    <BaseIcon className={className}>
+      <path d="M12 22s7-6.1 7-12a7 7 0 10-14 0c0 5.9 7 12 7 12z" />
+      <circle cx="12" cy="10" r="2.5" />
+    </BaseIcon>
+  )
+}
+
+export function UserIcon({ className }) {
+  return (
+    <BaseIcon className={className}>
+      <circle cx="12" cy="8" r="4" />
+      <path d="M4 20a8 8 0 0116 0" />
+    </BaseIcon>
+  )
+}
+
+export function StethoscopeIcon({ className }) {
+  return (
+    <BaseIcon className={className}>
+      <path d="M8 4v5a4 4 0 008 0V4" />
+      <path d="M8 4H6M18 4h-2" />
+      <path d="M16 13v2a4 4 0 11-8 0v-2" />
+      <circle cx="18" cy="15" r="2" />
+      <path d="M18 17v2" />
+    </BaseIcon>
+  )
+}
