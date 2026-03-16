@@ -424,6 +424,57 @@ button {
   border-radius: 16px;
   padding: 0.95rem;
   text-align: center;
+  position: relative;
+  overflow: hidden;
+  animation: metric-rise 520ms ease both;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.trust-strip article::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  transform: translateX(-130%);
+  background: linear-gradient(115deg, rgba(255, 255, 255, 0) 0%, rgba(207, 240, 236, 0.55) 50%, rgba(255, 255, 255, 0) 100%);
+  animation: metric-shimmer 3.8s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.trust-strip article:nth-child(1) {
+  animation-delay: 70ms;
+}
+
+.trust-strip article:nth-child(2) {
+  animation-delay: 140ms;
+}
+
+.trust-strip article:nth-child(3) {
+  animation-delay: 210ms;
+}
+
+.trust-strip article:nth-child(4) {
+  animation-delay: 280ms;
+}
+
+.trust-strip article:nth-child(1)::after {
+  animation-delay: 320ms;
+}
+
+.trust-strip article:nth-child(2)::after {
+  animation-delay: 520ms;
+}
+
+.trust-strip article:nth-child(3)::after {
+  animation-delay: 720ms;
+}
+
+.trust-strip article:nth-child(4)::after {
+  animation-delay: 920ms;
+}
+
+.trust-strip article:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 24px rgba(26, 62, 84, 0.1);
 }
 
 .trust-strip h3 {
@@ -431,6 +482,7 @@ button {
   font-size: 1.4rem;
   color: #0b7a6e;
   font-family: 'Space Grotesk', sans-serif;
+  animation: metric-glow 2.4s ease-in-out infinite;
 }
 
 .doctor-preview {
@@ -456,6 +508,25 @@ button {
   border-radius: 14px;
   background: #ffffff;
   padding: 0.9rem;
+  animation: doctor-card-rise 500ms ease both;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.doctor-card:nth-child(1) {
+  animation-delay: 90ms;
+}
+
+.doctor-card:nth-child(2) {
+  animation-delay: 170ms;
+}
+
+.doctor-card:nth-child(3) {
+  animation-delay: 250ms;
+}
+
+.doctor-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 26px rgba(20, 56, 72, 0.12);
 }
 
 .doctor-card h4 {
@@ -890,6 +961,49 @@ textarea:focus {
   50% {
     transform: scale(1);
     opacity: 0.95;
+  }
+}
+
+@keyframes metric-rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes metric-glow {
+  0%,
+  100% {
+    text-shadow: 0 0 0 rgba(11, 122, 110, 0);
+  }
+  50% {
+    text-shadow: 0 0 16px rgba(11, 122, 110, 0.22);
+  }
+}
+
+@keyframes metric-shimmer {
+  0%,
+  28%,
+  100% {
+    transform: translateX(-130%);
+  }
+  46% {
+    transform: translateX(130%);
+  }
+}
+
+@keyframes doctor-card-rise {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
   }
 }
 
