@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import FormField from '../components/FormField'
 import PageHeader from '../components/PageHeader'
@@ -12,6 +12,13 @@ function AuthSignInPage() {
   const { signIn } = useAuth()
   const navigate = useNavigate()
   const location = useLocation()
+  const fieldRefs = useRef({})
+
+  function setFieldRef(name) {
+    return (element) => {
+      fieldRefs.current[name] = element
+    }
+  }
 
   function handleChange(event) {
     const { name, value } = event.target
@@ -24,7 +31,12 @@ function AuthSignInPage() {
     if (!form.email.trim()) nextErrors.email = 'Email is required.'
     if (!form.password.trim()) nextErrors.password = 'Password is required.'
     setErrors(nextErrors)
-    if (Object.keys(nextErrors).length > 0) return
+    if (Object.keys(nextErrors).length > 0) {
+      const [firstInvalidField] = Object.keys(nextErrors)
+      fieldRefs.current[firstInvalidField]?.focus()
+      setMessage('')
+      return
+    }
 
     signIn({ email: form.email.trim(), role: form.role })
     setMessage('Signed in successfully. Redirecting...')
@@ -41,8 +53,20 @@ function AuthSignInPage() {
 
       <section className="card auth-card">
         <form onSubmit={handleSubmit} className="stack" noValidate>
+          <p className="sr-only" aria-live="polite">
+            Required fields include email, password, and role.
+          </p>
           <FormField id="sign-in-email" label="Email" error={errors.email}>
-            <input id="sign-in-email" name="email" type="email" value={form.email} onChange={handleChange} />
+            <input
+              id="sign-in-email"
+              name="email"
+              type="email"
+              autoComplete="email"
+              required
+              ref={setFieldRef('email')}
+              value={form.email}
+              onChange={handleChange}
+            />
           </FormField>
 
           <FormField id="sign-in-password" label="Password" error={errors.password}>
@@ -50,13 +74,16 @@ function AuthSignInPage() {
               id="sign-in-password"
               name="password"
               type="password"
+              autoComplete="current-password"
+              required
+              ref={setFieldRef('password')}
               value={form.password}
               onChange={handleChange}
             />
           </FormField>
 
           <FormField id="sign-in-role" label="Login as" error={errors.role}>
-            <select id="sign-in-role" name="role" value={form.role} onChange={handleChange}>
+            <select id="sign-in-role" name="role" ref={setFieldRef('role')} value={form.role} onChange={handleChange}>
               <option value="patient">Patient</option>
               <option value="doctor">Doctor</option>
             </select>
@@ -66,7 +93,17 @@ function AuthSignInPage() {
             Sign In
           </button>
 
-          {message ? <p className="success">{message}</p> : null}
+          {Object.keys(errors).length > 0 ? (
+            <p className="error" role="alert" aria-live="assertive">
+              Please review the highlighted fields and try again.
+            </p>
+          ) : null}
+
+          {message ? (
+            <p className="success" role="status" aria-live="polite">
+              {message}
+            </p>
+          ) : null}
 
           <p className="muted">
             <Link to="/auth/forgot-password">Forgot password?</Link> | <Link to="/auth/sign-up">Create account</Link>

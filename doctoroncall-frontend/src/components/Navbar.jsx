@@ -27,9 +27,9 @@ function Navbar() {
   }
 
   return (
-    <header className="site-nav">
+    <header className="site-nav" role="banner">
       <div className="container">
-        <NavLink to="/" className="brand">
+        <NavLink to="/" className="brand" aria-label="DoctorOnCall home">
           Doctor<span>OnCall</span>
         </NavLink>
         <div className="nav-actions">

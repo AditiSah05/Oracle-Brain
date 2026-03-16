@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import FormField from '../components/FormField'
 import PageHeader from '../components/PageHeader'
 
@@ -13,6 +13,13 @@ function AuthSignUpPage() {
   })
   const [errors, setErrors] = useState({})
   const [message, setMessage] = useState('')
+  const fieldRefs = useRef({})
+
+  function setFieldRef(name) {
+    return (element) => {
+      fieldRefs.current[name] = element
+    }
+  }
 
   function handleChange(event) {
     const { name, value } = event.target
@@ -27,7 +34,13 @@ function AuthSignUpPage() {
     if (form.password.length < 8) nextErrors.password = 'Password must have at least 8 characters.'
     if (form.confirmPassword !== form.password) nextErrors.confirmPassword = 'Passwords do not match.'
     setErrors(nextErrors)
-    if (Object.keys(nextErrors).length === 0) setMessage('Account details validated and ready for API integration.')
+    if (Object.keys(nextErrors).length > 0) {
+      const [firstInvalidField] = Object.keys(nextErrors)
+      fieldRefs.current[firstInvalidField]?.focus()
+      setMessage('')
+      return
+    }
+    setMessage('Account details validated and ready for API integration.')
   }
 
   return (
@@ -36,23 +49,52 @@ function AuthSignUpPage() {
 
       <section className="card auth-card">
         <form className="stack" onSubmit={handleSubmit} noValidate>
+          <p className="sr-only" aria-live="polite">
+            Create an account using name, email, role, and password.
+          </p>
           <FormField id="sign-up-full-name" label="Full name" error={errors.fullName}>
-            <input id="sign-up-full-name" name="fullName" value={form.fullName} onChange={handleChange} />
+            <input
+              id="sign-up-full-name"
+              name="fullName"
+              autoComplete="name"
+              required
+              ref={setFieldRef('fullName')}
+              value={form.fullName}
+              onChange={handleChange}
+            />
           </FormField>
 
           <FormField id="sign-up-email" label="Email" error={errors.email}>
-            <input id="sign-up-email" type="email" name="email" value={form.email} onChange={handleChange} />
+            <input
+              id="sign-up-email"
+              type="email"
+              name="email"
+              autoComplete="email"
+              required
+              ref={setFieldRef('email')}
+              value={form.email}
+              onChange={handleChange}
+            />
           </FormField>
 
           <FormField id="sign-up-role" label="Role" error={errors.role}>
-            <select id="sign-up-role" name="role" value={form.role} onChange={handleChange}>
+            <select id="sign-up-role" name="role" ref={setFieldRef('role')} value={form.role} onChange={handleChange}>
               <option value="patient">Patient</option>
               <option value="doctor">Doctor</option>
             </select>
           </FormField>
 
           <FormField id="sign-up-password" label="Password" error={errors.password}>
-            <input id="sign-up-password" type="password" name="password" value={form.password} onChange={handleChange} />
+            <input
+              id="sign-up-password"
+              type="password"
+              name="password"
+              autoComplete="new-password"
+              required
+              ref={setFieldRef('password')}
+              value={form.password}
+              onChange={handleChange}
+            />
           </FormField>
 
           <FormField id="sign-up-confirm-password" label="Confirm password" error={errors.confirmPassword}>
@@ -60,6 +102,9 @@ function AuthSignUpPage() {
               id="sign-up-confirm-password"
               type="password"
               name="confirmPassword"
+              autoComplete="new-password"
+              required
+              ref={setFieldRef('confirmPassword')}
               value={form.confirmPassword}
               onChange={handleChange}
             />
@@ -68,7 +113,17 @@ function AuthSignUpPage() {
           <button className="btn btn-primary" type="submit">
             Create Account
           </button>
-          {message ? <p className="success">{message}</p> : null}
+          {Object.keys(errors).length > 0 ? (
+            <p className="error" role="alert" aria-live="assertive">
+              Please correct the highlighted fields.
+            </p>
+          ) : null}
+
+          {message ? (
+            <p className="success" role="status" aria-live="polite">
+              {message}
+            </p>
+          ) : null}
 
           <p className="muted">
             Already registered? <Link to="/auth/sign-in">Sign in</Link>
